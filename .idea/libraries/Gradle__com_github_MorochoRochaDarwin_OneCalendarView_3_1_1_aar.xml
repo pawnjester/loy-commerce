@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.MorochoRochaDarwin:OneCalendarView:3.1.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/OneCalendarView-3.1.1.aar/da20cdde8168bceab4527d27de374c35/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/OneCalendarView-3.1.1.aar/da20cdde8168bceab4527d27de374c35/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.MorochoRochaDarwin/OneCalendarView/3.1.1/29c56e96d4bfde05982cbee429912d9b244924ba/OneCalendarView-3.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.MorochoRochaDarwin/OneCalendarView/3.1.1/e7b5b292f2912637ab72357da46802b1f6cd4ed2/OneCalendarView-3.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

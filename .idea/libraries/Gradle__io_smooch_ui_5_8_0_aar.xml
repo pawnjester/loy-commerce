@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: io.smooch:ui:5.8.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ui-5.8.0.aar/699d7014f2d650e3189d94d761e03783/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ui-5.8.0.aar/699d7014f2d650e3189d94d761e03783/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

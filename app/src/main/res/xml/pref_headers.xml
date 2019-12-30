@@ -1,0 +1,61 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_account_circle_black_24px"
+        android:title="@string/account">
+        <extra android:name="settings" android:value="@string/settings_account" />
+    </header>
+
+    <header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_shopping_cart_green_24px"
+        android:title="@string/my_products_and_services">
+        <extra android:name="settings" android:value="@string/settings_products_and_services" />
+    </header>
+
+    <header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_info_green_24px"
+        android:title="@string/pref_header_general" >
+        <extra android:name="settings" android:value="@string/settings_general" />
+    </header>
+
+    <!--<header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/pref_header_notifications">
+        <extra android:name="settings" android:value="@string/settings_notifications" />
+    </header>-->
+
+    <header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_sync_green_24px"
+        android:title="@string/pref_header_data_sync">
+        <extra android:name="settings" android:value="@string/settings_data_and_sync" />
+    </header>
+
+    <header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_printer_green_24px"
+        android:title="@string/pref_header_print_options">
+        <extra android:name="settings" android:value="@string/settings_print" />
+    </header>
+
+
+    <header
+        android:fragment="co.loystar.loystarbusiness.activities.SettingsActivity$SettingsFragment"
+        android:icon="@drawable/ic_linear_scale_black_24dp"
+        android:title="@string/pref_connect_apps" >
+        <extra android:name="settings" android:value="@string/settings_apps" />
+    </header>
+
+    <!--<header
+        android:id="@+id/loystar_support_pref_header"
+        android:icon="@drawable/ic_customer_support_green_24px"
+        android:title="@string/pref_support_title">
+    </header>-->
+
+</preference-headers>

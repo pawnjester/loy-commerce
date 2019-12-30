@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="horizontal"
+    android:showDividers="middle"
+    tools:context="co.loystar.loystarbusiness.activities.CustomerListActivity">
+
+    <!--
+    This layout is a two-pane layout for the Customers
+    master/detail flow.
+    
+    -->
+
+    <co.loystar.loystarbusiness.utils.ui.RecyclerViewOverrides.EmptyRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/customers_rv"
+        android:name="co.loystar.loystarbusiness.activities.CustomerListFragment"
+        android:layout_width="@dimen/item_width"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="co.loystar.loystarbusiness.activities.CustomerListActivity" />
+
+    <include layout="@layout/empty_recycler_state_view" />
+
+    <FrameLayout
+        android:id="@+id/customer_detail_container"
+        android:tag="multiPaneCustomerDetail"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "tag": "food_and_drinks",
+    "title": "Food and Drinks"
+  },
+  {
+    "id": 2,
+    "tag": "fashion_and_accessories",
+    "title": "Fashion and Accessories"
+  },
+  {
+    "id": 3,
+    "tag": "salon_and_beauty",
+    "title": "Salon and Beauty"
+  },
+  {
+    "id": 4,
+    "tag": "hotel_and_travel",
+    "title": "Hotel and Travel"
+  },
+  {
+    "id": 5,
+    "tag": "gym_and_fitness",
+    "title": "Gym and Fitness"
+  },
+  {
+    "id": 6,
+    "tag": "home_and_gifts",
+    "title": "Home and Gifts"
+  },
+  {
+    "id": 7,
+    "tag": "washing_and_cleaning",
+    "title": "Washing and Cleaning"
+  },
+  {
+    "id": 8,
+    "tag": "Groceries",
+    "title": "Groceries"
+  },
+  {
+    "id": 9,
+    "tag": "others",
+    "title": "Others"
+  }
+]

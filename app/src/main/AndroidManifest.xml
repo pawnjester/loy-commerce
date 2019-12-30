@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="co.loystar.loystarbusiness">
+
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
+        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission
+        android:name="android.permission.MANAGE_ACCOUNTS"
+        android:maxSdkVersion="22" />
+    <uses-permission
+        android:name="android.permission.USE_CREDENTIALS"
+        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.InvoiceListActivity"></activity>
+        <activity android:name=".activities.InvoicePayActivity" />
+
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
+
+        <provider
+            android:name=".auth.sync.StubProvider"
+            android:authorities="co.loystar.loystarbusiness.provider"
+            android:exported="false"
+            android:label="Loystar Sync"
+            android:syncable="true" />
+
+        <service
+            android:name=".auth.sync.AuthenticatorService"
+            android:enabled="true"
+            android:permission=""
+            android:process=":auth"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+        <service
+            android:name=".auth.sync.SyncService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":sync"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_adapter" />
+        </service>
+        <service
+            android:name=".utils.fcm.MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".utils.fcm.MyFirebaseInstanceIDService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".utils.BackgroundNotificationService" />
+
+        <meta-data
+            android:name="com.facebook.accountkit.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_application_id" />
+        <meta-data
+            android:name="com.facebook.accountkit.ClientToken"
+            android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <service
+            android:name=".utils.fcm.MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name=".utils.GenericFileProvider"
+            android:authorities="${applicationId}.co.loystar.loystarbusiness.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.BrandedLaunch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.accountkit.ui.AccountKitActivity"
+            android:theme="@style/AppLoginTheme"
+            tools:replace="android:theme" />
+        <activity
+            android:name=".activities.MerchantBackOfficeActivity"
+            android:label="@string/title_activity_merchant_back_office"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AuthenticatorActivity"
+            android:label="@string/title_activity_authenticator"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.MerchantSignUpActivity"
+            android:label="@string/title_activity_merchant_sign_up"
+            android:parentActivityName=".activities.AuthenticatorActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.AuthenticatorActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AppIntro"
+            android:label="@string/title_activity_app_intro"
+            android:theme="@style/VerticalIntroStyle" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".activities.CustomerListActivity"
+            android:label="@string/title_customer_list"
+            android:parentActivityName=".activities.MerchantBackOfficeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.MerchantBackOfficeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.CustomerDetailActivity"
+            android:label="@string/title_customer_detail"
+            android:parentActivityName=".activities.CustomerListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.CustomerListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddNewCustomerActivity"
+            android:label="@string/title_activity_add_new_customer"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.EditCustomerDetailsActivity"
+            android:label="@string/title_activity_edit_customer_details"
+            android:parentActivityName=".activities.CustomerDetailActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.CustomerDetailActivity" />
+        </activity>
+        <activity
+            android:name=".activities.RewardCustomersActivity"
+            android:label="@string/title_activity_reward_customers"
+            android:parentActivityName=".activities.CustomerListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.CustomerListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.MessageBroadcastActivity"
+            android:label="@string/title_activity_message_broadcast"
+            android:parentActivityName=".activities.CustomerListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.CustomerListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.PaySubscriptionActivity"
+            android:label="@string/title_activity_pay_subscription"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SendSmsActivity"
+            android:label="@string/title_activity_send_sms"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.LoyaltyProgramListActivity"
+            android:label="@string/title_loyaltyprogram_list"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.LoyaltyProgramDetailActivity"
+            android:label="@string/title_loyaltyprogram_detail"
+            android:parentActivityName=".activities.LoyaltyProgramListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.LoyaltyProgramListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.NewLoyaltyProgramListActivity"
+            android:label="@string/title_activity_new_loyalty_program_list"
+            android:parentActivityName=".activities.LoyaltyProgramListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.LoyaltyProgramListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.CreateNewLoyaltyProgramActivity"
+            android:label="@string/title_activity_create_new_loyalty_program"
+            android:parentActivityName=".activities.NewLoyaltyProgramListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.NewLoyaltyProgramListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.MyAccountProfileActivity"
+            android:label="@string/title_activity_my_account_profile"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.SettingsActivity" />
+            android:configChanges="orientation|screenSize"
+        </activity>
+        <activity
+            android:name=".activities.ProductListActivity"
+            android:label="@string/title_product_list"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ProductDetailActivity"
+            android:label="@string/title_product_detail"
+            android:parentActivityName=".activities.ProductListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.ProductListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ProductCategoryListActivity"
+            android:label="@string/title_productcategory_list"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.BirthdayOffersAndMessagingActivity"
+            android:label="@string/title_activity_birthday_offers_and_messaging"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ConfirmPasswordResetActivity"
+            android:label="@string/title_activity_confirm_password_reset"
+            android:parentActivityName=".activities.ForgotPasswordActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.ForgotPasswordActivity" />
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="loystar-api.herokuapp.com"
+                    android:pathPrefix="/reset_password"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app.loystar.co"
+                    android:pathPrefix="/reset_password"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.AddProductActivity"
+            android:label="@string/title_activity_add_product"
+            android:parentActivityName=".activities.ProductListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.ProductListActivity" />
+        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".activities.SaleWithPosActivity"
+            android:label="@string/title_activity_points_sale_with_pos"
+            android:parentActivityName=".activities.MerchantBackOfficeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.MerchantBackOfficeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SaleWithoutPosActivity"
+            android:label="@string/title_activity_sale_without_pos"
+            android:parentActivityName=".activities.MerchantBackOfficeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.MerchantBackOfficeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ChooseProgramActivity"
+            android:label="@string/title_activity_choose_program"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AddStampsActivity"
+            android:label="@string/title_activity_add_stamps"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.SearchableActivity"
+            android:label="@string/title_activity_searchable"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
+        <provider
+            android:name=".models.CustomerContentProvider"
+            android:authorities="co.loystar.loystarbusiness.models.db.provider"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.SaleWithPosConfirmationActivity"
+            android:label="@string/title_activity_pos_sale_confirmation"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.SaleWithoutPosConfirmationActivity"
+            android:label="@string/title_activity_sale_without_pos_confirmation"
+            android:parentActivityName=".activities.MerchantBackOfficeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.MerchantBackOfficeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SalesOrderListActivity"
+            android:label="@string/title_salesorder_list"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.MerchantBackOfficeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.MerchantBackOfficeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SalesOrderDetailActivity"
+            android:label="@string/title_salesorder_detail"
+            android:parentActivityName=".activities.SalesOrderListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.SalesOrderListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SalesHistoryActivity"
+            android:label="@string/title_activity_sales_history"
+            android:parentActivityName=".activities.MerchantBackOfficeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.MerchantBackOfficeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddPointsActivity"
+            android:label="@string/title_activity_add_points"
+            android:parentActivityName=".activities.SaleWithoutPosActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.loystar.loystarbusiness.activities.SaleWithoutPosActivity" />
+        </activity>
+    </application>
+
+</manifest>

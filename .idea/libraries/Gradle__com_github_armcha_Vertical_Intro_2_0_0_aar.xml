@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.armcha:Vertical-Intro:2.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Vertical-Intro-2.0.0.aar/54ecde494b52c69c64db63db5eeb74ad/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Vertical-Intro-2.0.0.aar/54ecde494b52c69c64db63db5eeb74ad/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.armcha/Vertical-Intro/2.0.0/cb4b873371faad1baf890a64b1474e57ebe8371e/Vertical-Intro-2.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.armcha/Vertical-Intro/2.0.0/1e077e9236c1c7cf2ede26b9bb545bf143e0b3b0/Vertical-Intro-2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

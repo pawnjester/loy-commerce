@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Shareable attributes-->
+    <attr name="backGroundColor" format="color"/>
+    <attr name="backgroundDrawable" format="reference"/>
+
+    <declare-styleable name="FullRectangleButton">
+        <attr name="backGroundColor" />
+    </declare-styleable>
+
+    <declare-styleable name="SpinnerButton">
+        <attr name="android:prompt" />
+        <attr name="android:entries" />
+    </declare-styleable>
+
+    <declare-styleable name="ActionButton">
+        <attr name="backgroundDrawable"/>
+    </declare-styleable>
+
+    <declare-styleable name="CurrencyEditText">
+        <attr name="enableDefaultHint" format="boolean"/>
+        <attr name="allowNegativeValues" format="boolean" />
+        <attr name="formatWithTextFormatter" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="IncrementDecrementButton">
+        <attr name="backGroundColor" />
+        <attr name="initialNumber" format="integer"/>
+        <attr name="finalNumber" format="integer" />
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="backgroundDrawable"/>
+    </declare-styleable>
+
+    <declare-styleable name="CartCountButton">
+        <attr name="backGroundColor" />
+    </declare-styleable>
+
+    <declare-styleable name="BrandButtonTransparent">
+        <attr name="backgroundDrawable"/>
+    </declare-styleable>
+
+    <declare-styleable name="GreenButton">
+        <attr name="backGroundColor" />
+    </declare-styleable>
+</resources>

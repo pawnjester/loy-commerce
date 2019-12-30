@@ -1,0 +1,204 @@
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.7.0'
+}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+apply plugin: 'com.google.firebase.firebase-crash'
+
+repositories {
+    maven {
+        url 'https://maven.google.com'
+    }
+    maven {
+        url 'http://sdk.uxcam.com/android/'
+    }
+    mavenCentral()
+}
+
+Properties props = new Properties()
+try {
+    props.load(file('loystar.properties').newDataInputStream())
+} catch (Exception ignored) {
+    throw new GradleException("Missing loystar.properties, check the loystar.properties file.")
+}
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "co.loystar.loystarbusiness"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 114
+        versionName '1.6'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [onesignal_app_id               : "00205c9f-9af0-47b8-9b4d-d63e9a432b83",
+                                onesignal_google_project_number: "REMOTE"]
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        resConfigs "en"
+    }
+    flavorDimensions "versionCode"
+    dataBinding {
+        enabled = true
+    }
+    signingConfigs {
+        release {
+            storeFile file('loystar-upload-keystore.jks')
+            storePassword 'loystar123$'
+            keyAlias 'loystar-upload'
+            keyPassword 'loystar123$'
+        }
+        debug {
+            storeFile file('loystar-upload-keystore.jks')
+            storePassword 'loystar123$'
+            keyAlias 'loystar-upload'
+            keyPassword 'loystar123$'
+        }
+    }
+    productFlavors {
+        develop {
+            applicationId "co.loystar.loystarbusiness.develop"
+            buildConfigField "String", "HOST", '"https://loystar-api.herokuapp.com/"'
+            buildConfigField "String", "URL_PREFIX", '"api/v2/"'
+            minSdkVersion 16
+        }
+        production {
+            buildConfigField "String", "HOST", '"https://app.loystar.co/"'
+            buildConfigField "String", "URL_PREFIX", '"api/v2/"'
+            minSdkVersion 16
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            debuggable false
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SMOOCH_TOKEN", "\"${props.getProperty("smoochToken")}\""
+            buildConfigField "String", "MIXPANEL_TOKEN", "\"${props.getProperty("mixPanelToken")}\""
+            buildConfigField "String", "UXCAM_TOKEN", "\"${props.getProperty("uxCamToken")}\""
+            signingConfig signingConfigs.release
+            useProguard true
+        }
+        debug {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SMOOCH_TOKEN", "\"${props.getProperty("smoochToken")}\""
+            buildConfigField "String", "MIXPANEL_TOKEN", "\"${props.getProperty("mixPanelToken")}\""
+            buildConfigField "String", "UXCAM_TOKEN", "\"${props.getProperty("uxCamToken")}\""
+            signingConfig signingConfigs.release
+            debuggable true
+            useProguard true
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+ext {
+    supportLibVersion = "28.0.0"
+    junitVersion = "4.12"
+    firebaseVersion = "11.6.2"
+    requeryVersion = "1.4.0"
+    permissionsDispatcherVersion = "2.4.0"
+    butterKnifeVersion = "8.8.1"
+    retrofit2Version = "2.3.0"
+    smoochVersion = "5.8.0"
+}
+
+dependencies {
+    implementation "com.android.support:support-v4:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "io.requery:requery:$requeryVersion"
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation "io.requery:requery-android:$requeryVersion"
+    annotationProcessor "io.requery:requery-processor:$requeryVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:exifinterface:$supportLibVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:support-vector-drawable:$supportLibVersion"
+    implementation "com.google.android.gms:play-services-auth:$firebaseVersion"
+    implementation "com.google.android.gms:play-services-location:$firebaseVersion"
+    implementation "com.google.firebase:firebase-messaging:$firebaseVersion"
+    implementation "com.google.firebase:firebase-core:$firebaseVersion"
+    implementation "com.google.firebase:firebase-auth:$firebaseVersion"
+    implementation "com.google.firebase:firebase-crash:$firebaseVersion"
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    implementation 'com.firebaseui:firebase-ui-auth:3.1.0'
+    implementation "io.smooch:core:${smoochVersion}"
+    implementation "io.smooch:ui:${smoochVersion}"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+    implementation "com.jakewharton:butterknife:${butterKnifeVersion}", {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}", {
+        exclude group: 'com.android.support'
+    }
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    implementation 'com.github.armcha:Vertical-Intro:2.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    implementation 'com.uxcam:uxcam:2.6.4@aar'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.0'
+    implementation "com.squareup.retrofit2:converter-jackson:${retrofit2Version}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofit2Version}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit2Version}"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    implementation group: 'com.mixpanel.android', name: 'mixpanel-android', version: '5.2.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.github.MorochoRochaDarwin:OneCalendarView:3.1.1'
+    implementation 'com.roughike:bottom-bar:2.3.1'
+    implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    implementation 'com.onesignal:OneSignal:3.6.5'
+    implementation("com.squareup.okio:okio:2.4.2")
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.facebook.android:account-kit-sdk:4.+'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.5'
+    implementation 'net.sourceforge.jexcelapi:jxl:2.6.12'
+    implementation("com.github.hotchemi:permissionsdispatcher:$permissionsDispatcherVersion") {
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$permissionsDispatcherVersion"
+    testImplementation "junit:junit:$junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+apply plugin: 'com.google.gms.google-services'

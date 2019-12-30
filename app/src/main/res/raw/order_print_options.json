@@ -1,0 +1,10 @@
+[
+  {
+    "id": "CustomerOnly",
+    "title": "Customer Only"
+  },
+  {
+    "id": "StaffOnly",
+    "title": "Staff Only"
+  }
+]
